@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+// import Container from './components/Container';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import NotFound from './pages/NotFound';
+import ProductList from './pages/ProductList';
+import Navbar from './components/Navbar';
+import Axios from 'axios';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  state = {
+    user: null,
+  }
+
+  componentDidMount() {
+    Axios.get('http://localhost:8080/api/users/1')
+    .then(response => this.setState({ user: response.data }))
+    .catch(error => console.error(error));
+  }
+
+  render() {
+    const { user } = this.state;
+
+    return (
+      <BrowserRouter>
+        <Navbar user={user} />
+        <Switch>
+          <Route path='/products' component={ProductList} />
+          <Route component={NotFound} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
-
-export default App;
