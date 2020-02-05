@@ -5,7 +5,8 @@ import NotFound from './pages/NotFound';
 import ProductList from './pages/ProductList';
 import Navbar from './components/Navbar';
 import Axios from 'axios';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import OrderList from './components/OrderList';
+import Order from './components/Order';
 
 export default class App extends Component {
   state = {
@@ -25,7 +26,11 @@ export default class App extends Component {
       <BrowserRouter>
         <Navbar user={user} />
         <Switch>
-          <Route path='/products' component={ProductList} />
+          <Route exact path='/products' component={ProductList} />
+          <Route exact path='/orders'>
+            <OrderList user={user} />
+          </Route>
+          <Route exact path='/orders/:id' component={Order} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

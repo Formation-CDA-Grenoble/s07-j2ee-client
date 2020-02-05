@@ -6,7 +6,8 @@ import { faCartPlus, faSearch } from '@fortawesome/free-solid-svg-icons';
 const ProductPreview = ({
   name,
   price,
-  picture
+  picture,
+  insideOrder
 }) =>
   <Card>
     <div style={{ minHeight: '16em', display: 'flex', alignItems: 'center' }} >
@@ -16,7 +17,9 @@ const ProductPreview = ({
       <Card.Title>{name}</Card.Title>
       <Card.Subtitle>{price}€</Card.Subtitle>
       <Button variant="primary"><FontAwesomeIcon icon={faSearch} /> Details</Button>
-      <Button variant="success"><FontAwesomeIcon icon={faCartPlus} /> Add to cart</Button>
+      {insideOrder ? null :
+        <Button variant="success"><FontAwesomeIcon icon={faCartPlus} /> Add to cart</Button>
+      }
     </Card.Body>
   </Card>
 ;
